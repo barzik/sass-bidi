@@ -1,0 +1,40 @@
+// usage: @include bidi-direction();
+// output:
+//   ltr: direction: ltr;
+//   rtl: direction: rtl;
+@mixin bidi-direction() {
+    direction: $bidi;
+}
+
+// usage: @include bidi-text-align(start | end);
+// output:
+//   ltr: text-align: left | right;
+//   rtl: text-align: right | left;
+@mixin bidi-text-align($direction) {
+
+
+	@if $bidi == ltr {
+		@if $direction == start {
+			text-align: left;
+		} @else if $direction == end {
+			text-align: right;
+		} @else {
+			@warn "$direction is not start or end";
+		}		
+    } @else if $bidi == rtl {
+        @if $direction == start {
+			text-align: right;
+		} @else if $direction == end {
+			text-align: left;
+		} @else {
+			@warn "$direction is not start or end";
+		}	
+    } @else {
+		@include bidi-warning();
+	}
+}
+
+
+@mixin bidi-warning() {
+	 @warn "$bidi is not defined";
+}

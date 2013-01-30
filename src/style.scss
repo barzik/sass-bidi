@@ -1,5 +1,7 @@
+
+
 // css 2.1
-@import "border";
+@import "border" ;
 @import "clear";
 @import "float";
 @import "margin";
@@ -8,6 +10,16 @@
 @import "text";
 
 // css 3
+
 @import "border-radius";
 @import "box-shadow";
 @import "text-shadow";
+
+
+// Example
+
+$bidi : ltr; //define it on top of your general SCSS file
+
+body {
+	 @include bidi-text-shadow(3,3);
+}

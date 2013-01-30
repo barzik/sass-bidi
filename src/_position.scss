@@ -1,0 +1,31 @@
+// usage: @include bidi-start-offset(5px);
+// output:
+//   ltr: left: 5px;
+//   rtl: right: 5px;
+@mixin bidi-start-offset ($offset) {
+	@if $bidi == ltr {
+        left: $offset;
+    } @else if $bidi == rtl {
+        right: $offset;
+    } @else {
+		@include bidi-warning();
+	}
+}
+
+// usage: @include bidi-end-offset(5px);
+// output:
+//   ltr: right: 5px;
+//   rtl: left: 5px;
+@mixin bidi-end-offset ($offset) {
+	@if $bidi == ltr {
+        right: $offset;
+    } @else if $bidi == rtl {
+        left: $offset;
+    } @else {
+		@include bidi-warning();
+	}
+}
+
+@mixin bidi-warning() {
+	 @warn "$bidi is not defined";
+}

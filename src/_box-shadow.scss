@@ -1,0 +1,67 @@
+@mixin bidi-box-shadow($h-shadow, $v-shadow, $blur: 0px, $spread: 0px, $color: 0) {
+	@if type_of($color) == color {
+		@if $bidi == ltr {
+			-moz-box-shadow: $h-shadow $v-shadow $blur $spread $color;
+			-webkit-box-shadow: $h-shadow $v-shadow $blur $spread $color;
+			box-shadow: $h-shadow $v-shadow $blur $spread $color;
+		} @else if $bidi == rtl {
+			-moz-box-shadow: (0 - $h-shadow) $v-shadow $blur $spread $color;
+			-webkit-box-shadow: (0 - $h-shadow) $v-shadow $blur $spread $color;
+			box-shadow: (0 - $h-shadow) $v-shadow $blur $spread $color;
+		} @else {
+			@include bidi-warning();
+		}
+
+	} @else if type_of($color) == number {
+		@if $bidi == ltr {
+			-moz-box-shadow: $h-shadow $v-shadow $blur $spread;
+			-webkit-box-shadow: $h-shadow $v-shadow $blur $spread;
+			box-shadow: $h-shadow $v-shadow $blur $spread;
+		} @else if $bidi == rtl {
+			-moz-box-shadow: (0 - $h-shadow) $v-shadow $blur $spread;
+			-webkit-box-shadow: (0 - $h-shadow) $v-shadow $blur $spread;
+			box-shadow: (0 - $h-shadow) $v-shadow $blur $spread;
+		} @else {
+			@include bidi-warning();
+		}
+	} @else {
+		@warning "$color is not number or color";
+	}
+	
+}
+
+@mixin bidi-box-shadow-inset($h-shadow, $v-shadow, $blur: 0px, $spread: 0px, $color: 0) {
+	@if type_of($color) == color {
+		@if $bidi == ltr {
+			-moz-box-shadow: inset $h-shadow $v-shadow $blur $spread $color;
+			-webkit-box-shadow: inset $h-shadow $v-shadow $blur $spread $color;
+			box-shadow: inset $h-shadow $v-shadow $blur $spread $color;
+		} @else if $bidi == rtl {
+			-moz-box-shadow: inset (0 - $h-shadow) $v-shadow $blur $spread $color;
+			-webkit-box-shadow: inset (0 - $h-shadow) $v-shadow $blur $spread $color;
+			box-shadow: inset (0 - $h-shadow) $v-shadow $blur $spread $color;
+		} @else {
+			@include bidi-warning();
+		}
+
+	} @else if type_of($color) == number {
+		@if $bidi == ltr {
+			-moz-box-shadow: inset $h-shadow $v-shadow $blur $spread;
+			-webkit-box-shadow: inset $h-shadow $v-shadow $blur $spread;
+			box-shadow: inset $h-shadow $v-shadow $blur $spread;
+		} @else if $bidi == rtl {
+			-moz-box-shadow: inset (0 - $h-shadow) $v-shadow $blur $spread;
+			-webkit-box-shadow: inset (0 - $h-shadow) $v-shadow $blur $spread;
+			box-shadow: inset (0 - $h-shadow) $v-shadow $blur $spread;
+		} @else {
+			@include bidi-warning();
+		}
+	} @else {
+		@warning "$color is not number or color";
+	}
+	
+}
+
+@mixin bidi-warning() {
+	 @warn "$bidi is not defined";
+}

@@ -1,0 +1,27 @@
+@mixin bidi-text-shadow($h-shadow, $v-shadow, $blur: 0px, $color: 0) {
+	@if type_of($color) == color {
+		@if $bidi == ltr {
+			text-shadow: $h-shadow $v-shadow $blur $color;
+		} @else if $bidi == rtl {
+			text-shadow: (0 - $h-shadow) $v-shadow $blur $color;
+		} @else {
+			@include bidi-warning();
+		}
+
+	} @else if type_of($color) == number {
+		@if $bidi == ltr {
+			text-shadow: $h-shadow $v-shadow $blur;
+		} @else if $bidi == rtl {
+			text-shadow: (0 - $h-shadow) $v-shadow $blur;
+		} @else {
+			@include bidi-warning();
+		}
+	} @else {
+		@warning "$color is not number or color";
+	}
+}
+
+
+@mixin bidi-warning() {
+	 @warn "$bidi is not defined";
+}

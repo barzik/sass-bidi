@@ -1,0 +1,32 @@
+// usage: @include bidi-float(start | end);
+// output:
+//   ltr: float: left | right;
+//   rtl: float: right | left;
+
+@mixin bidi-float ($direction) {
+
+	@if $bidi == ltr {
+		@if $direction == start {
+			float: left;
+		} @else if $direction == end {
+			float: right;
+		} @else {
+			@warn "$direction is not start or end";
+		}		
+    } @else if $bidi == rtl {
+        @if $direction == start {
+			float: right;
+		} @else if $direction == end {
+			float: left;
+		} @else {
+			@warn "$direction is not start or end";
+		}	
+    } @else {
+		@include bidi-warning();
+	}
+}
+
+
+@mixin bidi-warning() {
+	 @warn "$bidi is not defined";
+}

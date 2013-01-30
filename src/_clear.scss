@@ -1,0 +1,31 @@
+// usage: @include bidi-clear(start | end);
+// output:
+//   ltr: clear: left | right;
+//   rtl: clear: right | left;
+@mixin bidi-clear ($direction) {
+
+	@if $bidi == ltr {
+		@if $direction == start {
+			clear: left;
+		} @else if $direction == end {
+			clear: right;
+		} @else {
+			@warn "$direction is not start or end";
+		}		
+    } @else if $bidi == rtl {
+        @if $direction == start {
+			clear: right;
+		} @else if $direction == end {
+			clear: left;
+		} @else {
+			@warn "$direction is not start or end";
+		}	
+    } @else {
+		@include bidi-warning();
+	}
+}
+
+
+@mixin bidi-warning() {
+	 @warn "$bidi is not defined";
+}

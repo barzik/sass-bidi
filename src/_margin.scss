@@ -1,0 +1,45 @@
+// usage: @include bidi-margin(1px, 2px, 3px 4px);
+// output:
+//   ltr: margin: 1px 2px 3px 4px;
+//   rtl: margin: 1px 4px 3px 2px;
+@mixin bidi-margin ($top, $end, $bottom, $start) {
+	@if $bidi == ltr {
+        margin: $top $end $bottom $start;
+    } @else if $bidi == rtl {
+        margin: $top $start $bottom $end;
+    } @else {
+		@include bidi-warning();
+	}
+}
+
+// usage: @include bidi-margin-start(5px);
+// output:
+//   ltr: margin-left: 5px;
+//   rtl: margin-right: 5px;
+@mixin bidi-margin-start ($margin) {
+	@if $bidi == ltr {
+        margin-left: $margin;
+    } @else if $bidi == rtl {
+        margin-right: $margin;
+    } @else {
+		@include bidi-warning();
+	}
+}
+
+// usage: @include bidi-margin-end(5px);
+// output:
+//   ltr: margin-right: 5px;
+//   rtl: margin-left: 5px;
+@mixin bidi-margin-end ($margin) {
+	@if $bidi == ltr {
+        margin-right: $margin;
+	} @else if $bidi == rtl {
+        margin-left: $margin;
+    } @else {
+		@include bidi-warning();
+	}
+}
+
+@mixin bidi-warning() {
+	 @warn "$bidi is not defined";
+}
